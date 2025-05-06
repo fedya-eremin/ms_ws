@@ -85,7 +85,7 @@ async function checkSubscriptionPermission(
 
 export default (router: ConnectRouter) => {
   router.service(CentrifugoProxy, {
-    async publish(request: PublishRequest) {
+    async publish(request: PublishRequest): Promise<PublishResponse> {
       try {
         if (!(await checkPublishPermission(request.user, request.channel))) {
           return {
@@ -97,14 +97,14 @@ export default (router: ConnectRouter) => {
           } as PublishResponse;
         }
         return { result: {} } as PublishResponse;
-      } catch (e) {
+      } catch (e: any) {
         return {
           error: { code: 500, message: e.message, temporary: true } as Error,
         } as PublishResponse;
       }
     },
 
-    async subscribe(request: SubscribeRequest) {
+    async subscribe(request: SubscribeRequest): Promise<SubscribeResponse> {
       try {
         if (
           !(await checkSubscriptionPermission(request.user, request.channel))
@@ -118,7 +118,7 @@ export default (router: ConnectRouter) => {
           } as SubscribeResponse;
         }
         return { result: {} } as SubscribeResponse;
-      } catch (e) {
+      } catch (e: any) {
         return {
           error: { code: 500, message: e.message, temporary: true } as Error,
         } as SubscribeResponse;
