@@ -6,12 +6,10 @@ import {
   SubscribeRequest,
   SubscribeResponse,
   Error,
-} from "../proxyproto/proxyproto_pb";
-import postgres from "postgres";
-import * as sql from "../queries/queries_sql";
+} from "@/gen/proto/proxyproto_pb";
+import * as sql from "@/gen/sql/queries_sql";
+import db from "@/storage/db";
 import KeycloakAdminClient from "@keycloak/keycloak-admin-client";
-
-const db = postgres(process.env.DATABASE_URL!);
 
 async function getOrCreateUser(userId: string): Promise<sql.GetUserByIDRow> {
   let dbUser = await sql.getUserByID(db, { id: userId });
