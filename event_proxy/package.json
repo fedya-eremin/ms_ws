@@ -1,7 +1,7 @@
 {
   "name": "event_proxy",
   "version": "1.0.0",
-  "main": "./main.ts",
+  "main": "./src/main.ts",
   "author": {
     "name": "fedya-eremin",
     "email": "qwertier06@gmail.com"
